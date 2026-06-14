@@ -17,6 +17,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NAMESPACE: ${{ vars.NAMESPACE || 'kubernetesloong64' }}
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -66,7 +68,7 @@ jobs:
       - name: Build image
         if: github.event_name != 'push'
         run: |
-          PREFIX="${{ github.repository }}"
+          PREFIX="${{ env.NAMESPACE }}/jdk-loong64"
           TAG_JDK_UPDATE="${PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
           TAG_VERSION="${PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
           TAG_LOONGSON_JDK="${PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
@@ -83,11 +85,13 @@ jobs:
             -t "${TAG_LOONGSON_JDK}" \
             docker/
           echo "==> Done: ${TAG_JDK_UPDATE}"
+          echo "==> Done: ${TAG_VERSION}"
+          echo "==> Done: ${TAG_LOONGSON_JDK}"
 
       - name: Build and push image
         if: github.event_name == 'push'
         run: |
-          PREFIX="kubernetesloong64/jdk-loong64"
+          PREFIX="${{ env.NAMESPACE }}/jdk-loong64"
           TAG_JDK_UPDATE="${PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
           TAG_VERSION="${PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
           TAG_LOONGSON_JDK="${PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
