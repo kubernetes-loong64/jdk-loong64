@@ -28,17 +28,23 @@ jobs:
             dockerfile: Dockerfile.debian
         jdk:
           - version: "8"
-            url: "https://ftp.loongnix.cn/Java/openjdk8/loongson8.1.27-fx-jdk8u492b09-linux-loongarch64-glibc2.34.tar.gz"
+            loongson_jdk_version: "8.1.27"
+            jdk_update: "8u492b09"
           - version: "11"
-            url: "https://ftp.loongnix.cn/Java/openjdk11/loongson11.18.27-fx-jdk11.0.31_11-linux-loongarch64-glibc2.34.tar.gz"
+            loongson_jdk_version: "11.18.27"
+            jdk_update: "11.0.31_11"
           - version: "17"
-            url: "https://ftp.loongnix.cn/Java/openjdk17/loongson17.18.25-fx-jdk17.0.19_10-linux-loongarch64-glibc2.34.tar.gz"
+            loongson_jdk_version: "17.18.25"
+            jdk_update: "17.0.19_10"
           - version: "21"
-            url: "https://ftp.loongnix.cn/Java/openjdk21/loongson21.11.38-fx-jdk21.0.11_10-linux-loongarch64-glibc2.34.tar.gz"
+            loongson_jdk_version: "21.11.38"
+            jdk_update: "21.0.11_10"
           - version: "25"
-            url: "https://ftp.loongnix.cn/Java/openjdk25/loongson25.3.20-fx-jdk25.0.2_10-linux-loongarch64-glibc2.34.tar.gz"
+            loongson_jdk_version: "25.3.20"
+            jdk_update: "25.0.2_10"
           - version: "26"
-            url: "https://ftp.loongnix.cn/Java/openjdk26/loongson26.1.11-fx-jdk26_35-linux-loongarch64-glibc2.34.tar.gz"
+            loongson_jdk_version: "26.1.11"
+            jdk_update: "26_35"
 
     steps:
       - name: Checkout
@@ -60,32 +66,44 @@ jobs:
       - name: Build image
         if: github.event_name != 'push'
         run: |
-          TAG="${{ github.repository }}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
-          echo "==> Building ${TAG}"
+          PREFIX="${{ github.repository }}"
+          TAG_JDK_UPDATE="${PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
+          TAG_VERSION="${PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
+          TAG_LOONGSON_JDK="${PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
+          echo "==> Building ${TAG_JDK_UPDATE}"
           docker buildx build \
             --no-cache \
             -f "docker/${{ matrix.base.dockerfile }}" \
             --build-arg "JDK_VERSION=${{ matrix.jdk.version }}" \
-            --build-arg "JDK_TARBALL_URL=${{ matrix.jdk.url }}" \
-            --build-arg "JDK_MD5SUM_URL=${{ matrix.jdk.url }}.md5sum" \
+            --build-arg "LOONGSON_JDK_VERSION=${{ matrix.jdk.loongson_jdk_version }}" \
+            --build-arg "JDK_UPDATE=${{ matrix.jdk.jdk_update }}" \
             --platform linux/loong64 \
-            -t "${TAG}" \
+            -t "${TAG_JDK_UPDATE}" \
+            -t "${TAG_VERSION}" \
+            -t "${TAG_LOONGSON_JDK}" \
             docker/
-          echo "==> Done: ${TAG}"
+          echo "==> Done: ${TAG_JDK_UPDATE}"
 
       - name: Build and push image
         if: github.event_name == 'push'
         run: |
-          TAG="kubernetesloong64/jdk-loong64:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
-          echo "==> Building ${TAG}"
+          PREFIX="kubernetesloong64/jdk-loong64"
+          TAG_JDK_UPDATE="${PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
+          TAG_VERSION="${PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
+          TAG_LOONGSON_JDK="${PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
+          echo "==> Building ${TAG_JDK_UPDATE}"
           docker buildx build \
             --push \
             --no-cache \
             -f "docker/${{ matrix.base.dockerfile }}" \
             --build-arg "JDK_VERSION=${{ matrix.jdk.version }}" \
-            --build-arg "JDK_TARBALL_URL=${{ matrix.jdk.url }}" \
-            --build-arg "JDK_MD5SUM_URL=${{ matrix.jdk.url }}.md5sum" \
+            --build-arg "LOONGSON_JDK_VERSION=${{ matrix.jdk.loongson_jdk_version }}" \
+            --build-arg "JDK_UPDATE=${{ matrix.jdk.jdk_update }}" \
             --platform linux/loong64 \
-            -t "${TAG}" \
+            -t "${TAG_JDK_UPDATE}" \
+            -t "${TAG_VERSION}" \
+            -t "${TAG_LOONGSON_JDK}" \
             docker/
-          echo "==> Done: ${TAG}"
+          echo "==> Done: ${TAG_JDK_UPDATE}"
+          echo "==> Done: ${TAG_VERSION}"
+          echo "==> Done: ${TAG_LOONGSON_JDK}"

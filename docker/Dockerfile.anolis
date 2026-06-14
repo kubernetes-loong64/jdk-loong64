@@ -1,8 +1,14 @@
 FROM openanolis/anolisos:23.4
 
 ARG JDK_VERSION
-ARG JDK_TARBALL_URL
-ARG JDK_MD5SUM_URL
+ARG LOONGSON_JDK_VERSION
+ARG JDK_UPDATE
+
+ENV JDK_VERSION=${JDK_VERSION}
+ENV LOONGSON_JDK_VERSION=${LOONGSON_JDK_VERSION}
+ENV JDK_UPDATE=${JDK_UPDATE}
+ENV JDK_TARBALL_URL="https://ftp.loongnix.cn/Java/openjdk${JDK_VERSION}/loongson${LOONGSON_JDK_VERSION}-fx-jdk${JDK_UPDATE}-linux-loongarch64-glibc2.34.tar.gz"
+ENV JDK_MD5SUM_URL="${JDK_TARBALL_URL}.md5sum"
 
 LABEL maintainer="徐晓伟 <xuxiaowei@xuxiaowei.com.cn>" \
       license="Apache-2.0" \
