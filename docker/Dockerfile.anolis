@@ -21,7 +21,7 @@ LABEL maintainer="徐晓伟 <xuxiaowei@xuxiaowei.com.cn>" \
       org.opencontainers.image.url="https://github.com/kubernetes-loong64/jdk-loong64" \
       org.opencontainers.image.source="https://github.com/kubernetes-loong64/jdk-loong64"
 
-RUN dnf install -y curl tar && dnf clean all \
+RUN dnf install -y tar \
     && mkdir -p /opt/java/openjdk-${JDK_VERSION} \
     && curl -fsSL "${JDK_TARBALL_URL}" -o /tmp/jdk.tar.gz \
     && curl -fsSL "${JDK_MD5SUM_URL}" -o /tmp/jdk.tar.gz.md5 \
@@ -34,7 +34,10 @@ RUN dnf install -y curl tar && dnf clean all \
     && tar -xzf /tmp/jdk.tar.gz -C /opt/java/openjdk-${JDK_VERSION} --strip-components=1 \
     && rm -f /tmp/jdk.tar.gz /tmp/jdk.tar.gz.md5 \
     && JAVA_HOME=/opt/java/openjdk-${JDK_VERSION} PATH=/opt/java/openjdk-${JDK_VERSION}/bin:$PATH \
-    java -version
+    && dnf remove -y tar \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf \
+    && java -version
 
 ENV JAVA_HOME=/opt/java/openjdk-${JDK_VERSION}
 ENV PATH=${JAVA_HOME}/bin:${PATH}

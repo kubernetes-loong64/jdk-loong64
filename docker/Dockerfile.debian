@@ -35,7 +35,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certifi
     && tar -xzf /tmp/jdk.tar.gz -C /opt/java/openjdk-${JDK_VERSION} --strip-components=1 \
     && rm -f /tmp/jdk.tar.gz /tmp/jdk.tar.gz.md5 \
     && JAVA_HOME=/opt/java/openjdk-${JDK_VERSION} PATH=/opt/java/openjdk-${JDK_VERSION}/bin:$PATH \
-    java -version
+    && apt-get purge -y curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && java -version
 
 ENV JAVA_HOME=/opt/java/openjdk-${JDK_VERSION}
 ENV PATH=${JAVA_HOME}/bin:${PATH}
