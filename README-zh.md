@@ -16,11 +16,17 @@
 ## 基于 Debian 系统
 
 - [![kubernetesloong64/jdk-loong64:8-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/8-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:8-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/8-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 - [![kubernetesloong64/jdk-loong64:11-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/11-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:11-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/11-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 - [![kubernetesloong64/jdk-loong64:17-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/17-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:17-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/17-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 - [![kubernetesloong64/jdk-loong64:21-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/21-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:21-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/21-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 - [![kubernetesloong64/jdk-loong64:25-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/25-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:25-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/25-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 - [![kubernetesloong64/jdk-loong64:26-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/26-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:26-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/26-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 
 ### 支持的 JDK 版本
 
