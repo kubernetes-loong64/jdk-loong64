@@ -1,0 +1,152 @@
+name: check jdk update
+
+on:
+  schedule:
+    # Daily at 2 AM China time (UTC+8)
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jdk:
+          - version: "8"
+            loongson_jdk_version: "8.1.27"
+            jdk_update: "8u492b09"
+          - version: "11"
+            loongson_jdk_version: "11.18.27"
+            jdk_update: "11.0.31_11"
+          - version: "17"
+            loongson_jdk_version: "17.18.25"
+            jdk_update: "17.0.19_10"
+          - version: "21"
+            loongson_jdk_version: "21.11.38"
+            jdk_update: "21.0.11_10"
+          - version: "25"
+            loongson_jdk_version: "25.3.20"
+            jdk_update: "25.0.2_10"
+          - version: "26"
+            loongson_jdk_version: "26.1.11"
+            jdk_update: "26_35"
+
+    steps:
+      - name: Check for new JDK version
+        id: check
+        run: |
+          JDK_VERSION="${{ matrix.jdk.version }}"
+          EXPECTED_LOONGSON="${{ matrix.jdk.loongson_jdk_version }}"
+          EXPECTED_UPDATE="${{ matrix.jdk.jdk_update }}"
+
+          URL="https://ftp.loongnix.cn/Java/openjdk${JDK_VERSION}/"
+
+          echo "==> Checking ${URL}"
+
+          # Fetch directory listing
+          HTML=$(curl -sSL --retry 3 --retry-delay 10 "$URL")
+
+          # Extract all matching tar.gz hrefs
+          # Pattern: loongson{V}-fx-jdk{U}-linux-loongarch64-glibc2.34.tar.gz
+          LATEST_FILE=$(echo "$HTML" | grep -oP 'href="\K[^"]*loongson[^"]*-fx-jdk[^"]*-linux-loongarch64-glibc2\.34\.tar\.gz' | sort -V | tail -1)
+
+          if [ -z "$LATEST_FILE" ]; then
+            echo "::warning::No matching file found at ${URL}"
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Latest file: ${LATEST_FILE}"
+
+          # Extract versions from filename
+          # Format: loongson{V}-fx-jdk{U}-linux-loongarch64-glibc2.34.tar.gz
+          LOONGSON_VER=$(echo "$LATEST_FILE" | sed -E 's/loongson([^-]+)-fx-jdk.*/\1/')
+          JDK_UPDATE_VER=$(echo "$LATEST_FILE" | sed -E 's/loongson[^-]+-fx-jdk([^-]+)-linux-loongarch64.*/\1/')
+
+          echo "Current latest : loongson=${LOONGSON_VER}, jdk_update=${JDK_UPDATE_VER}"
+          echo "Expected        : loongson=${EXPECTED_LOONGSON}, jdk_update=${EXPECTED_UPDATE}"
+
+          echo "latest_file=${LATEST_FILE}" >> "$GITHUB_OUTPUT"
+          echo "loongson_ver=${LOONGSON_VER}" >> "$GITHUB_OUTPUT"
+          echo "jdk_update_ver=${JDK_UPDATE_VER}" >> "$GITHUB_OUTPUT"
+
+          if [ "${LOONGSON_VER}" != "${EXPECTED_LOONGSON}" ] || [ "${JDK_UPDATE_VER}" != "${EXPECTED_UPDATE}" ]; then
+            echo "New version detected!"
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No new version."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.check.outputs.found == 'true'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create Issue
+        if: steps.check.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          JDK_VERSION="${{ matrix.jdk.version }}"
+          LOONGSON_VER="${{ steps.check.outputs.loongson_ver }}"
+          JDK_UPDATE_VER="${{ steps.check.outputs.jdk_update_ver }}"
+          LATEST_FILE="${{ steps.check.outputs.latest_file }}"
+
+          ISSUE_TITLE=":arrow_up: JDK ${JDK_VERSION} update available: loongson ${LOONGSON_VER} / jdk ${JDK_UPDATE_VER}"
+
+          echo "==> Checking if an open issue already exists..."
+
+          # Check if an open issue already exists for this JDK version
+          EXISTING=$(gh issue list \
+            --label "jdk-update" \
+            --state open \
+            --search "JDK ${JDK_VERSION} update" \
+            --json number \
+            --jq '.[0].number' 2>/dev/null || true)
+
+          if [ -n "$EXISTING" ]; then
+            echo "Issue #${EXISTING} already open for JDK ${JDK_VERSION}, skipping."
+            exit 0
+          fi
+
+          echo "==> Generating diff..."
+
+          BUILD_FILE=".github/workflows/build-${JDK_VERSION}.yml"
+          cp "${BUILD_FILE}" "${BUILD_FILE}.new"
+
+          # Apply version changes to the copy
+          sed -i \
+            -e "s/loongson_jdk_version: \".*\"/loongson_jdk_version: \"${LOONGSON_VER}\"/" \
+            -e "s/jdk_update: \".*\"/jdk_update: \"${JDK_UPDATE_VER}\"/" \
+            "${BUILD_FILE}.new"
+
+          # Generate diff
+          DIFF=$(diff -u "${BUILD_FILE}" "${BUILD_FILE}.new" || true)
+          rm -f "${BUILD_FILE}.new"
+
+          echo "==> Creating issue..."
+
+          BODY=$(cat <<EOF
+          A new JDK ${JDK_VERSION} release has been detected on the Loongnix FTP.
+
+          ## Tarball
+          https://ftp.loongnix.cn/Java/openjdk${JDK_VERSION}/${LATEST_FILE}
+
+          ## Diff
+
+          \`\`\`diff
+          ${DIFF}
+          \`\`\`
+          EOF
+          )
+
+          gh issue create \
+            --title "$ISSUE_TITLE" \
+            --label "jdk-update" \
+            --body "$BODY"
+
+          echo "Issue created for JDK ${JDK_VERSION}"
