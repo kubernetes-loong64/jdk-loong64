@@ -4,6 +4,9 @@ on:
   schedule:
     # Daily at 2 AM China time (UTC+8)
     - cron: '0 18 * * *'
+  push:
+    paths:
+      - .github/workflows/check-update.yml
   workflow_dispatch:
 
 permissions:
@@ -89,7 +92,8 @@ jobs:
       - name: Create Issue
         if: steps.check.outputs.found == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
+          # GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
         run: |
           JDK_VERSION="${{ matrix.jdk.version }}"
           LOONGSON_VER="${{ steps.check.outputs.loongson_ver }}"
