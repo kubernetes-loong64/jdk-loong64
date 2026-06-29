@@ -86,18 +86,13 @@ jobs:
           TAG_VERSION="${PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
           TAG_LOONGSON_JDK="${PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
           echo "==> Building ${TAG_JDK_UPDATE}"
-          SYNC_TAGS=""
+          SYNC_PREFIX=${PREFIX}
           if [ -n "${{ vars.SYNC_REGISTRY }}" ]; then
-            SYNC_PREFIX="${{ vars.SYNC_REGISTRY }}/${{ env.NAMESPACE }}/jdk-loong64"
-            SYNC_TAG_JDK_UPDATE="${SYNC_PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
-            SYNC_TAG_VERSION="${SYNC_PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
-            SYNC_TAG_LOONGSON_JDK="${SYNC_PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
-            SYNC_TAGS="-t \"${SYNC_TAG_JDK_UPDATE}\" -t \"${SYNC_TAG_VERSION}\" -t \"${SYNC_TAG_LOONGSON_JDK}\""
-            echo "==> Syncing to ${{ vars.SYNC_REGISTRY }}"
-            echo "==> Sync tag: ${SYNC_TAG_JDK_UPDATE}"
-            echo "==> Sync tag: ${SYNC_TAG_VERSION}"
-            echo "==> Sync tag: ${SYNC_TAG_LOONGSON_JDK}"
+            SYNC_PREFIX=${{ vars.SYNC_REGISTRY }}/${PREFIX}
           fi
+          SYNC_TAG_JDK_UPDATE="${SYNC_PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
+          SYNC_TAG_VERSION="${SYNC_PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
+          SYNC_TAG_LOONGSON_JDK="${SYNC_PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
           docker buildx build \
             $is_push \
             --no-cache \
@@ -110,7 +105,9 @@ jobs:
             -t "${TAG_JDK_UPDATE}" \
             -t "${TAG_VERSION}" \
             -t "${TAG_LOONGSON_JDK}" \
-            ${SYNC_TAGS} \
+            -t "${SYNC_TAG_JDK_UPDATE}" \
+            -t "${SYNC_TAG_VERSION}" \
+            -t "${SYNC_TAG_LOONGSON_JDK}" \
             docker/
           echo "==> Done: ${TAG_JDK_UPDATE}"
           echo "==> Done: ${TAG_VERSION}"
