@@ -1,4 +1,4 @@
-name: build
+name: build jdk 17
 
 on:
   push:
@@ -6,13 +6,13 @@ on:
       - main
     paths:
       - docker/**
-      - .github/workflows/build.yml
+      - .github/workflows/build-17.yml
   pull_request:
     branches:
       - main
     paths:
       - docker/**
-      - .github/workflows/build.yml
+      - .github/workflows/build-17.yml
 
 jobs:
   build:
@@ -37,24 +37,9 @@ jobs:
             dockerfile: Dockerfile.openeuler
             base_image: openeuler/openeuler:24.03-lts-sp3
         jdk:
-          - version: "8"
-            loongson_jdk_version: "8.1.27"
-            jdk_update: "8u492b09"
-          - version: "11"
-            loongson_jdk_version: "11.18.27"
-            jdk_update: "11.0.31_11"
           - version: "17"
             loongson_jdk_version: "17.18.25"
             jdk_update: "17.0.19_10"
-          - version: "21"
-            loongson_jdk_version: "21.11.38"
-            jdk_update: "21.0.11_10"
-          - version: "25"
-            loongson_jdk_version: "25.3.20"
-            jdk_update: "25.0.2_10"
-          - version: "26"
-            loongson_jdk_version: "26.1.11"
-            jdk_update: "26_35"
 
     steps:
       - name: Checkout

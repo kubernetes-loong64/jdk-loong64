@@ -1,0 +1,102 @@
+name: build jdk 26
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - docker/**
+      - .github/workflows/build-26.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - docker/**
+      - .github/workflows/build-26.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NAMESPACE: ${{ vars.NAMESPACE || 'kubernetesloong64' }}
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        base:
+          - os: anolis
+            dockerfile: Dockerfile.anolis
+            base_image: openanolis/anolisos:23.4
+          - os: debian
+            dockerfile: Dockerfile.debian
+            base_image: lcr.loongnix.cn/debian:14
+          - os: debian-slim
+            dockerfile: Dockerfile.debian
+            base_image: lcr.loongnix.cn/debian:14-slim
+          - os: openeuler
+            dockerfile: Dockerfile.openeuler
+            base_image: openeuler/openeuler:24.03-lts-sp3
+        jdk:
+          - version: "26"
+            loongson_jdk_version: "26.1.11"
+            jdk_update: "26_35"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3 # v4.1.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+
+      - name: Login to Docker
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
+        if: github.event_name == 'push'
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to sync container registry
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
+        if: github.event_name == 'push' && vars.SYNC_REGISTRY != ''
+        with:
+          registry: ${{ vars.SYNC_REGISTRY }}
+          username: ${{ vars.SYNC_REGISTRY_USERNAME }}
+          password: ${{ secrets.SYNC_REGISTRY_PASSWORD }}
+
+      - name: Build image
+        run: |
+          is_push=${{ github.event_name == 'push' && '--push' || '--load' }}
+          PREFIX="${{ env.NAMESPACE }}/jdk-loong64"
+          TAG_JDK_UPDATE="${PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
+          TAG_VERSION="${PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
+          TAG_LOONGSON_JDK="${PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
+          echo "==> Building ${TAG_JDK_UPDATE}"
+          SYNC_PREFIX=${PREFIX}
+          if [ -n "${{ vars.SYNC_REGISTRY }}" ]; then
+            SYNC_PREFIX=${{ vars.SYNC_REGISTRY }}/${PREFIX}
+          fi
+          SYNC_TAG_JDK_UPDATE="${SYNC_PREFIX}:${{ matrix.jdk.jdk_update }}-${{ matrix.base.os }}"
+          SYNC_TAG_VERSION="${SYNC_PREFIX}:${{ matrix.jdk.version }}-${{ matrix.base.os }}"
+          SYNC_TAG_LOONGSON_JDK="${SYNC_PREFIX}:${{ matrix.jdk.loongson_jdk_version }}-${{ matrix.base.os }}"
+          docker buildx build \
+            $is_push \
+            --no-cache \
+            -f "docker/${{ matrix.base.dockerfile }}" \
+            --build-arg "BASE_IMAGE=${{ matrix.base.base_image }}" \
+            --build-arg "JDK_VERSION=${{ matrix.jdk.version }}" \
+            --build-arg "LOONGSON_JDK_VERSION=${{ matrix.jdk.loongson_jdk_version }}" \
+            --build-arg "JDK_UPDATE=${{ matrix.jdk.jdk_update }}" \
+            --platform linux/loong64 \
+            -t "${TAG_JDK_UPDATE}" \
+            -t "${TAG_VERSION}" \
+            -t "${TAG_LOONGSON_JDK}" \
+            -t "${SYNC_TAG_JDK_UPDATE}" \
+            -t "${SYNC_TAG_VERSION}" \
+            -t "${SYNC_TAG_LOONGSON_JDK}" \
+            docker/
+          echo "==> Done: ${TAG_JDK_UPDATE}"
+          echo "==> Done: ${TAG_VERSION}"
+          echo "==> Done: ${TAG_LOONGSON_JDK}"
