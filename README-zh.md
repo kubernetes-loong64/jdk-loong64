@@ -110,6 +110,11 @@ docker pull kubernetesloong64/jdk-loong64:8u492b09-debian-slim
 docker pull kubernetesloong64/jdk-loong64:8.1.27-debian
 docker pull kubernetesloong64/jdk-loong64:8.1.27-debian-slim
 
+# JDK 8 (openeuler)
+docker pull kubernetesloong64/jdk-loong64:8-openeuler
+docker pull kubernetesloong64/jdk-loong64:8u492b09-openeuler
+docker pull kubernetesloong64/jdk-loong64:8.1.27-openeuler
+
 # JDK 11 (anolis)
 docker pull kubernetesloong64/jdk-loong64:11-anolis
 docker pull kubernetesloong64/jdk-loong64:11.0.31_11-anolis
@@ -122,6 +127,11 @@ docker pull kubernetesloong64/jdk-loong64:11.0.31_11-debian
 docker pull kubernetesloong64/jdk-loong64:11.0.31_11-debian-slim
 docker pull kubernetesloong64/jdk-loong64:11.18.27-debian
 docker pull kubernetesloong64/jdk-loong64:11.18.27-debian-slim
+
+# JDK 11 (openeuler)
+docker pull kubernetesloong64/jdk-loong64:11-openeuler
+docker pull kubernetesloong64/jdk-loong64:11.0.31_11-openeuler
+docker pull kubernetesloong64/jdk-loong64:11.18.27-openeuler
 
 # JDK 17 (anolis)
 docker pull kubernetesloong64/jdk-loong64:17-anolis
@@ -136,6 +146,11 @@ docker pull kubernetesloong64/jdk-loong64:17.0.19_10-debian-slim
 docker pull kubernetesloong64/jdk-loong64:17.18.25-debian
 docker pull kubernetesloong64/jdk-loong64:17.18.25-debian-slim
 
+# JDK 17 (openeuler)
+docker pull kubernetesloong64/jdk-loong64:17-openeuler
+docker pull kubernetesloong64/jdk-loong64:17.0.19_10-openeuler
+docker pull kubernetesloong64/jdk-loong64:17.18.25-openeuler
+
 # JDK 21 (anolis)
 docker pull kubernetesloong64/jdk-loong64:21-anolis
 docker pull kubernetesloong64/jdk-loong64:21.0.11_10-anolis
@@ -148,6 +163,11 @@ docker pull kubernetesloong64/jdk-loong64:21.0.11_10-debian
 docker pull kubernetesloong64/jdk-loong64:21.0.11_10-debian-slim
 docker pull kubernetesloong64/jdk-loong64:21.11.38-debian
 docker pull kubernetesloong64/jdk-loong64:21.11.38-debian-slim
+
+# JDK 21 (openeuler)
+docker pull kubernetesloong64/jdk-loong64:21-openeuler
+docker pull kubernetesloong64/jdk-loong64:21.0.11_10-openeuler
+docker pull kubernetesloong64/jdk-loong64:21.11.38-openeuler
 
 # JDK 25 (anolis)
 docker pull kubernetesloong64/jdk-loong64:25-anolis
@@ -162,6 +182,11 @@ docker pull kubernetesloong64/jdk-loong64:25.0.3_9-debian-slim
 docker pull kubernetesloong64/jdk-loong64:25.4.28-debian
 docker pull kubernetesloong64/jdk-loong64:25.4.28-debian-slim
 
+# JDK 25 (openeuler)
+docker pull kubernetesloong64/jdk-loong64:25-openeuler
+docker pull kubernetesloong64/jdk-loong64:25.0.3_9-openeuler
+docker pull kubernetesloong64/jdk-loong64:25.4.28-openeuler
+
 # JDK 26 (anolis)
 docker pull kubernetesloong64/jdk-loong64:26-anolis
 docker pull kubernetesloong64/jdk-loong64:26_35-anolis
@@ -174,6 +199,11 @@ docker pull kubernetesloong64/jdk-loong64:26_35-debian
 docker pull kubernetesloong64/jdk-loong64:26_35-debian-slim
 docker pull kubernetesloong64/jdk-loong64:26.1.11-debian
 docker pull kubernetesloong64/jdk-loong64:26.1.11-debian-slim
+
+# JDK 26 (openeuler)
+docker pull kubernetesloong64/jdk-loong64:26-openeuler
+docker pull kubernetesloong64/jdk-loong64:26_35-openeuler
+docker pull kubernetesloong64/jdk-loong64:26.1.11-openeuler
 ```
 
 ### 使用
