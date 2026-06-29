@@ -41,14 +41,49 @@ Prebuilt OpenJDK Docker images for the LoongArch (loong64) architecture.
 
 ### Supported Base Images
 
-| OS     | Base Image                  |
-|--------|-----------------------------|
-| anolis | openanolis/anolisos:23.4    |
-| debian | lcr.loongnix.cn/debian:14   |
+| OS          | Base Image                         |
+|-------------|------------------------------------|
+| anolis      | openanolis/anolisos:23.4           |
+| debian      | lcr.loongnix.cn/debian:14          |
+| debian-slim | lcr.loongnix.cn/debian:14-slim     |
+| openeuler   | openeuler/openeuler:24.03-lts-sp3  |
 
 ### Pull Images
 
 Images are published to Docker Hub under [`kubernetesloong64/jdk-loong64`](https://hub.docker.com/r/kubernetesloong64/jdk-loong64).
+
+A Chinese mirror is also available at `registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64`. Pull from the mirror by replacing the registry:
+
+```shell
+# Example: pull from the Chinese mirror
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:8-anolis
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:11-anolis
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:17-anolis
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:21-anolis
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:25-anolis
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:26-anolis
+
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:8-debian
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:11-debian
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:17-debian
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:21-debian
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:25-debian
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:26-debian
+
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:8-debian-slim
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:11-debian-slim
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:17-debian-slim
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:21-debian-slim
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:25-debian-slim
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:26-debian-slim
+
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:8-openeuler
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:11-openeuler
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:17-openeuler
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:21-openeuler
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:25-openeuler
+docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:26-openeuler
+```
 
 Each JDK version × OS combination has three tag variants: JDK Update tag, major version tag, and Loongson JDK version tag.
 
@@ -60,8 +95,11 @@ docker pull kubernetesloong64/jdk-loong64:8.1.27-anolis
 
 # JDK 8 (debian)
 docker pull kubernetesloong64/jdk-loong64:8-debian
+docker pull kubernetesloong64/jdk-loong64:8-debian-slim
 docker pull kubernetesloong64/jdk-loong64:8u492b09-debian
+docker pull kubernetesloong64/jdk-loong64:8u492b09-debian-slim
 docker pull kubernetesloong64/jdk-loong64:8.1.27-debian
+docker pull kubernetesloong64/jdk-loong64:8.1.27-debian-slim
 
 # JDK 11 (anolis)
 docker pull kubernetesloong64/jdk-loong64:11-anolis
@@ -70,8 +108,11 @@ docker pull kubernetesloong64/jdk-loong64:11.18.27-anolis
 
 # JDK 11 (debian)
 docker pull kubernetesloong64/jdk-loong64:11-debian
+docker pull kubernetesloong64/jdk-loong64:11-debian-slim
 docker pull kubernetesloong64/jdk-loong64:11.0.31_11-debian
+docker pull kubernetesloong64/jdk-loong64:11.0.31_11-debian-slim
 docker pull kubernetesloong64/jdk-loong64:11.18.27-debian
+docker pull kubernetesloong64/jdk-loong64:11.18.27-debian-slim
 
 # JDK 17 (anolis)
 docker pull kubernetesloong64/jdk-loong64:17-anolis
@@ -80,8 +121,11 @@ docker pull kubernetesloong64/jdk-loong64:17.18.25-anolis
 
 # JDK 17 (debian)
 docker pull kubernetesloong64/jdk-loong64:17-debian
+docker pull kubernetesloong64/jdk-loong64:17-debian-slim
 docker pull kubernetesloong64/jdk-loong64:17.0.19_10-debian
+docker pull kubernetesloong64/jdk-loong64:17.0.19_10-debian-slim
 docker pull kubernetesloong64/jdk-loong64:17.18.25-debian
+docker pull kubernetesloong64/jdk-loong64:17.18.25-debian-slim
 
 # JDK 21 (anolis)
 docker pull kubernetesloong64/jdk-loong64:21-anolis
@@ -90,8 +134,11 @@ docker pull kubernetesloong64/jdk-loong64:21.11.38-anolis
 
 # JDK 21 (debian)
 docker pull kubernetesloong64/jdk-loong64:21-debian
+docker pull kubernetesloong64/jdk-loong64:21-debian-slim
 docker pull kubernetesloong64/jdk-loong64:21.0.11_10-debian
+docker pull kubernetesloong64/jdk-loong64:21.0.11_10-debian-slim
 docker pull kubernetesloong64/jdk-loong64:21.11.38-debian
+docker pull kubernetesloong64/jdk-loong64:21.11.38-debian-slim
 
 # JDK 25 (anolis)
 docker pull kubernetesloong64/jdk-loong64:25-anolis
@@ -100,8 +147,11 @@ docker pull kubernetesloong64/jdk-loong64:25.4.28-anolis
 
 # JDK 25 (debian)
 docker pull kubernetesloong64/jdk-loong64:25-debian
+docker pull kubernetesloong64/jdk-loong64:25-debian-slim
 docker pull kubernetesloong64/jdk-loong64:25.0.3_9-debian
+docker pull kubernetesloong64/jdk-loong64:25.0.3_9-debian-slim
 docker pull kubernetesloong64/jdk-loong64:25.4.28-debian
+docker pull kubernetesloong64/jdk-loong64:25.4.28-debian-slim
 
 # JDK 26 (anolis)
 docker pull kubernetesloong64/jdk-loong64:26-anolis
@@ -110,8 +160,11 @@ docker pull kubernetesloong64/jdk-loong64:26.1.11-anolis
 
 # JDK 26 (debian)
 docker pull kubernetesloong64/jdk-loong64:26-debian
+docker pull kubernetesloong64/jdk-loong64:26-debian-slim
 docker pull kubernetesloong64/jdk-loong64:26_35-debian
+docker pull kubernetesloong64/jdk-loong64:26_35-debian-slim
 docker pull kubernetesloong64/jdk-loong64:26.1.11-debian
+docker pull kubernetesloong64/jdk-loong64:26.1.11-debian-slim
 ```
 
 ### Usage
@@ -120,26 +173,38 @@ docker pull kubernetesloong64/jdk-loong64:26.1.11-debian
 # JDK 8
 docker run --rm kubernetesloong64/jdk-loong64:8-anolis java -version
 docker run --rm kubernetesloong64/jdk-loong64:8-debian java -version
+docker run --rm kubernetesloong64/jdk-loong64:8-debian-slim java -version
+docker run --rm kubernetesloong64/jdk-loong64:8-openeuler java -version
 
 # JDK 11
 docker run --rm kubernetesloong64/jdk-loong64:11-anolis java -version
 docker run --rm kubernetesloong64/jdk-loong64:11-debian java -version
+docker run --rm kubernetesloong64/jdk-loong64:11-debian-slim java -version
+docker run --rm kubernetesloong64/jdk-loong64:11-openeuler java -version
 
 # JDK 17
 docker run --rm kubernetesloong64/jdk-loong64:17-anolis java -version
 docker run --rm kubernetesloong64/jdk-loong64:17-debian java -version
+docker run --rm kubernetesloong64/jdk-loong64:17-debian-slim java -version
+docker run --rm kubernetesloong64/jdk-loong64:17-openeuler java -version
 
 # JDK 21
 docker run --rm kubernetesloong64/jdk-loong64:21-anolis java -version
 docker run --rm kubernetesloong64/jdk-loong64:21-debian java -version
+docker run --rm kubernetesloong64/jdk-loong64:21-debian-slim java -version
+docker run --rm kubernetesloong64/jdk-loong64:21-openeuler java -version
 
 # JDK 25
 docker run --rm kubernetesloong64/jdk-loong64:25-anolis java -version
 docker run --rm kubernetesloong64/jdk-loong64:25-debian java -version
+docker run --rm kubernetesloong64/jdk-loong64:25-debian-slim java -version
+docker run --rm kubernetesloong64/jdk-loong64:25-openeuler java -version
 
 # JDK 26
 docker run --rm kubernetesloong64/jdk-loong64:26-anolis java -version
 docker run --rm kubernetesloong64/jdk-loong64:26-debian java -version
+docker run --rm kubernetesloong64/jdk-loong64:26-debian-slim java -version
+docker run --rm kubernetesloong64/jdk-loong64:26-openeuler java -version
 ```
 
 ## License
