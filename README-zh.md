@@ -30,14 +30,14 @@
 
 ### 支持的 JDK 版本
 
-| JDK | Loongson JDK 版本 | JDK Update   |
-|-----|-----------------|--------------|
-| 8   | 8.1.27          | 8u492b09     |
-| 11  | 11.18.27        | 11.0.31_11   |
-| 17  | 17.18.25        | 17.0.19_10   |
-| 21  | 21.11.38        | 21.0.11_10   |
-| 25  | 25.3.20         | 25.0.2_10    |
-| 26  | 26.1.11         | 26_35        |
+| JDK | Loongson JDK 版本 | JDK Update |
+|-----|-----------------|------------|
+| 8   | 8.1.27          | 8u492b09   |
+| 11  | 11.18.27        | 11.0.31_11 |
+| 17  | 17.18.25        | 17.0.19_10 |
+| 21  | 21.11.38        | 21.0.11_10 |
+| 25  | 25.4.28         | 25.0.3_9   |
+| 26  | 26.1.11         | 26_35      |
 
 ### 支持的基础镜像
 
@@ -95,13 +95,13 @@ docker pull kubernetesloong64/jdk-loong64:21.11.38-debian
 
 # JDK 25 (anolis)
 docker pull kubernetesloong64/jdk-loong64:25-anolis
-docker pull kubernetesloong64/jdk-loong64:25.0.2_10-anolis
-docker pull kubernetesloong64/jdk-loong64:25.3.20-anolis
+docker pull kubernetesloong64/jdk-loong64:25.0.3_9-anolis
+docker pull kubernetesloong64/jdk-loong64:25.4.28-anolis
 
 # JDK 25 (debian)
 docker pull kubernetesloong64/jdk-loong64:25-debian
-docker pull kubernetesloong64/jdk-loong64:25.0.2_10-debian
-docker pull kubernetesloong64/jdk-loong64:25.3.20-debian
+docker pull kubernetesloong64/jdk-loong64:25.0.3_9-debian
+docker pull kubernetesloong64/jdk-loong64:25.4.28-debian
 
 # JDK 26 (anolis)
 docker pull kubernetesloong64/jdk-loong64:26-anolis
