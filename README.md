@@ -28,6 +28,15 @@ Prebuilt OpenJDK Docker images for the LoongArch (loong64) architecture.
 - [![kubernetesloong64/jdk-loong64:26-debian](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/26-debian?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 - [![kubernetesloong64/jdk-loong64:26-debian-slim](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/26-debian-slim?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
 
+## OpenEuler-based
+
+- [![kubernetesloong64/jdk-loong64:8-openeuler](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/8-openeuler?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:11-openeuler](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/11-openeuler?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:17-openeuler](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/17-openeuler?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:21-openeuler](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/21-openeuler?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:25-openeuler](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/25-openeuler?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+- [![kubernetesloong64/jdk-loong64:26-openeuler](https://img.shields.io/docker/v/kubernetesloong64/jdk-loong64/26-openeuler?arch=loong64&logo=docker&label=kubernetesloong64%2Fjdk-loong64)](https://hub.docker.com/r/kubernetesloong64/jdk-loong64/tags)
+
 ### Supported JDK Versions
 
 | JDK | Loongson JDK Version | JDK Update |
