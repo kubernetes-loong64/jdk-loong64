@@ -23,6 +23,13 @@ LABEL maintainer="徐晓伟 <xuxiaowei@xuxiaowei.com.cn>" \
 
 RUN dnf install -y tar \
     && mkdir -p /opt/java/openjdk-${JDK_VERSION} \
+    && if [ "${JDK_VERSION}" = "8" ]; then \
+         FONTMANAGER_PATH=/opt/java/openjdk-${JDK_VERSION}/jre/lib/loongarch64/libfontmanager.so; \
+         SERVER_LIB_PATH=/opt/java/openjdk-${JDK_VERSION}/jre/lib/loongarch64/server; \
+       else \
+         FONTMANAGER_PATH=/opt/java/openjdk-${JDK_VERSION}/lib/libfontmanager.so; \
+         SERVER_LIB_PATH=/opt/java/openjdk-${JDK_VERSION}/lib/server; \
+       fi \
     && curl -fsSL "${JDK_TARBALL_URL}" -o /tmp/jdk.tar.gz \
     && curl -fsSL "${JDK_MD5SUM_URL}" -o /tmp/jdk.tar.gz.md5 \
     && EXPECTED_MD5=$(awk '{print $1}' /tmp/jdk.tar.gz.md5) \
@@ -34,10 +41,26 @@ RUN dnf install -y tar \
     && tar -xzf /tmp/jdk.tar.gz -C /opt/java/openjdk-${JDK_VERSION} --strip-components=1 \
     && rm -f /tmp/jdk.tar.gz /tmp/jdk.tar.gz.md5 \
     && JAVA_HOME=/opt/java/openjdk-${JDK_VERSION} PATH=/opt/java/openjdk-${JDK_VERSION}/bin:$PATH \
+    && java -version \
+    && echo "Checking libfontmanager.so dynamic library dependencies (before LD_LIBRARY_PATH)..." \
+    && ldd $FONTMANAGER_PATH \
+    && echo "Setting LD_LIBRARY_PATH to include ${SERVER_LIB_PATH}..." \
+    && export LD_LIBRARY_PATH=${SERVER_LIB_PATH}:$LD_LIBRARY_PATH \
+    && echo "Re-checking libfontmanager.so dynamic library dependencies (after LD_LIBRARY_PATH)..." \
+    && ldd $FONTMANAGER_PATH \
+    && echo "Installing freetype to resolve missing shared library dependencies..." \
+    && dnf install -y freetype \
+    && echo "Re-checking libfontmanager.so dynamic library dependencies (after freetype install)..." \
+    && ldd $FONTMANAGER_PATH \
+    && if ldd $FONTMANAGER_PATH 2>&1 | grep -q "not found"; then \
+         echo "ERROR: libfontmanager.so has unresolved dynamic library dependencies:"; \
+         ldd $FONTMANAGER_PATH; \
+         exit 1; \
+       fi \
     && dnf remove -y tar \
     && dnf clean all \
-    && rm -rf /var/cache/dnf \
-    && java -version
+    && rm -rf /var/cache/dnf
 
+ENV LD_LIBRARY_PATH=/opt/java/openjdk-${JDK_VERSION}/lib/server:/opt/java/openjdk-${JDK_VERSION}/jre/lib/loongarch64/server:$LD_LIBRARY_PATH
 ENV JAVA_HOME=/opt/java/openjdk-${JDK_VERSION}
 ENV PATH=${JAVA_HOME}/bin:${PATH}
