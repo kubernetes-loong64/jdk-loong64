@@ -22,7 +22,6 @@ LABEL maintainer="徐晓伟 <xuxiaowei@xuxiaowei.com.cn>" \
       org.opencontainers.image.source="https://github.com/kubernetes-loong64/jdk-loong64"
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/java/openjdk-${JDK_VERSION} \
     && curl -fsSL "${JDK_TARBALL_URL}" -o /tmp/jdk.tar.gz \
     && curl -fsSL "${JDK_MD5SUM_URL}" -o /tmp/jdk.tar.gz.md5 \
