@@ -1,4 +1,4 @@
-name: check jdk update
+name: check-upstream
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
     - cron: '0 18 * * *'
   push:
     paths:
-      - .github/workflows/check-update.yml
+      - .github/workflows/check-upstream.yml
   workflow_dispatch:
 
 permissions:
