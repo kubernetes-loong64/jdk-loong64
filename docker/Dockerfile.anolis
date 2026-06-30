@@ -52,6 +52,11 @@ RUN dnf install -y tar \
     && dnf install -y freetype \
     && echo "Re-checking libfontmanager.so dynamic library dependencies (after freetype install)..." \
     && ldd $FONTMANAGER_PATH \
+    && if ldd $FONTMANAGER_PATH 2>&1 | grep -q "not found"; then \
+         echo "ERROR: libfontmanager.so has unresolved dynamic library dependencies:"; \
+         ldd $FONTMANAGER_PATH; \
+         exit 1; \
+       fi \
     && dnf remove -y tar \
     && dnf clean all \
     && rm -rf /var/cache/dnf

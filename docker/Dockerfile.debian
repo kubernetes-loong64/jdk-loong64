@@ -52,6 +52,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certifi
     && apt-get install -y libfreetype6 \
     && echo "Re-checking libfontmanager.so dynamic library dependencies (after freetype install)..." \
     && ldd $FONTMANAGER_PATH \
+    && if ldd $FONTMANAGER_PATH 2>&1 | grep -q "not found"; then \
+         echo "ERROR: libfontmanager.so has unresolved dynamic library dependencies:"; \
+         ldd $FONTMANAGER_PATH; \
+         exit 1; \
+       fi \
     && apt-get purge -y curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
