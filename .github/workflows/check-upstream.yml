@@ -71,7 +71,7 @@ jobs:
           JDK_UPDATE_VER=$(echo "$LATEST_FILE" | sed -E 's/loongson[^-]+-fx-jdk([^-]+)-linux-loongarch64.*/\1/')
 
           echo "Current latest : loongson=${LOONGSON_VER}, jdk_update=${JDK_UPDATE_VER}"
-          echo "Expected        : loongson=${EXPECTED_LOONGSON}, jdk_update=${EXPECTED_UPDATE}"
+          echo "Expected       : loongson=${EXPECTED_LOONGSON}, jdk_update=${EXPECTED_UPDATE}"
 
           echo "latest_file=${LATEST_FILE}" >> "$GITHUB_OUTPUT"
           echo "loongson_ver=${LOONGSON_VER}" >> "$GITHUB_OUTPUT"
