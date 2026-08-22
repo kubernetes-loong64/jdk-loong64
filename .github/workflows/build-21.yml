@@ -64,6 +64,8 @@ jobs:
           password: ${{ secrets.SYNC_REGISTRY_PASSWORD }}
 
       - name: Build image
+        env:
+          DOCKER_BUILDKIT: 0
         run: |
           is_push=${{ github.event_name == 'push' && '--output type=registry,oci-artifact=false' || '--load' }}
           PREFIX="${{ env.NAMESPACE }}/jdk-loong64"
