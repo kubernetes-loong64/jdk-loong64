@@ -35,8 +35,8 @@ jobs:
             base_image: lcr.loongnix.cn/debian:14-slim
         jdk:
           - version: "25"
-            loongson_jdk_version: "25.4.28"
-            jdk_update: "25.0.3_9"
+            loongson_jdk_version: "25.5.22"
+            jdk_update: "25.0.4_7"
 
     steps:
       - name: Checkout

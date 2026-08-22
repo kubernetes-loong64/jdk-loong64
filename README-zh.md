@@ -31,17 +31,17 @@
 ### 支持的 JDK 版本
 
 | JDK | Loongson JDK 版本 | JDK Update |
-|-----|-----------------|------------|
-| 8   | 8.1.27          | 8u492b09   |
-| 11  | 11.18.27        | 11.0.31_11 |
-| 17  | 17.18.25        | 17.0.19_10 |
-| 21  | 21.11.38        | 21.0.11_10 |
-| 25  | 25.4.28         | 25.0.3_9   |
-| 26  | 26.1.11         | 26_35      |
+|-----|-------------------|------------|
+| 8   | 8.1.28            | 8u502b07   |
+| 11  | 11.19.27          | 11.0.32_9  |
+| 17  | 17.19.26          | 17.0.20_8  |
+| 21  | 21.12.26          | 21.0.12_8  |
+| 25  | 25.5.22           | 25.0.4_7   |
+| 26  | 26.1.11           | 26_35      |
 
 ### 支持的基础镜像
 
-| 操作系统        | 基础镜像                           |
+| 操作系统    | 基础镜像                       |
 |-------------|--------------------------------|
 | anolis      | openanolis/anolisos:23.4       |
 | debian      | lcr.loongnix.cn/debian:14      |
@@ -82,68 +82,68 @@ docker pull registry.cn-qingdao.aliyuncs.com/kubernetesloong64/jdk-loong64:26-de
 ```shell
 # JDK 8 (anolis)
 docker pull kubernetesloong64/jdk-loong64:8-anolis
-docker pull kubernetesloong64/jdk-loong64:8u492b09-anolis
-docker pull kubernetesloong64/jdk-loong64:8.1.27-anolis
+docker pull kubernetesloong64/jdk-loong64:8u502b07-anolis
+docker pull kubernetesloong64/jdk-loong64:8.1.28-anolis
 
 # JDK 8 (debian)
 docker pull kubernetesloong64/jdk-loong64:8-debian
 docker pull kubernetesloong64/jdk-loong64:8-debian-slim
-docker pull kubernetesloong64/jdk-loong64:8u492b09-debian
-docker pull kubernetesloong64/jdk-loong64:8u492b09-debian-slim
-docker pull kubernetesloong64/jdk-loong64:8.1.27-debian
-docker pull kubernetesloong64/jdk-loong64:8.1.27-debian-slim
+docker pull kubernetesloong64/jdk-loong64:8u502b07-debian
+docker pull kubernetesloong64/jdk-loong64:8u502b07-debian-slim
+docker pull kubernetesloong64/jdk-loong64:8.1.28-debian
+docker pull kubernetesloong64/jdk-loong64:8.1.28-debian-slim
 
 # JDK 11 (anolis)
 docker pull kubernetesloong64/jdk-loong64:11-anolis
-docker pull kubernetesloong64/jdk-loong64:11.0.31_11-anolis
-docker pull kubernetesloong64/jdk-loong64:11.18.27-anolis
+docker pull kubernetesloong64/jdk-loong64:11.0.32_9-anolis
+docker pull kubernetesloong64/jdk-loong64:11.19.27-anolis
 
 # JDK 11 (debian)
 docker pull kubernetesloong64/jdk-loong64:11-debian
 docker pull kubernetesloong64/jdk-loong64:11-debian-slim
-docker pull kubernetesloong64/jdk-loong64:11.0.31_11-debian
-docker pull kubernetesloong64/jdk-loong64:11.0.31_11-debian-slim
-docker pull kubernetesloong64/jdk-loong64:11.18.27-debian
-docker pull kubernetesloong64/jdk-loong64:11.18.27-debian-slim
+docker pull kubernetesloong64/jdk-loong64:11.0.32_9-debian
+docker pull kubernetesloong64/jdk-loong64:11.0.32_9-debian-slim
+docker pull kubernetesloong64/jdk-loong64:11.19.27-debian
+docker pull kubernetesloong64/jdk-loong64:11.19.27-debian-slim
 
 # JDK 17 (anolis)
 docker pull kubernetesloong64/jdk-loong64:17-anolis
-docker pull kubernetesloong64/jdk-loong64:17.0.19_10-anolis
-docker pull kubernetesloong64/jdk-loong64:17.18.25-anolis
+docker pull kubernetesloong64/jdk-loong64:17.0.20_8-anolis
+docker pull kubernetesloong64/jdk-loong64:17.19.26-anolis
 
 # JDK 17 (debian)
 docker pull kubernetesloong64/jdk-loong64:17-debian
 docker pull kubernetesloong64/jdk-loong64:17-debian-slim
-docker pull kubernetesloong64/jdk-loong64:17.0.19_10-debian
-docker pull kubernetesloong64/jdk-loong64:17.0.19_10-debian-slim
-docker pull kubernetesloong64/jdk-loong64:17.18.25-debian
-docker pull kubernetesloong64/jdk-loong64:17.18.25-debian-slim
+docker pull kubernetesloong64/jdk-loong64:17.0.20_8-debian
+docker pull kubernetesloong64/jdk-loong64:17.0.20_8-debian-slim
+docker pull kubernetesloong64/jdk-loong64:17.19.26-debian
+docker pull kubernetesloong64/jdk-loong64:17.19.26-debian-slim
 
 # JDK 21 (anolis)
 docker pull kubernetesloong64/jdk-loong64:21-anolis
-docker pull kubernetesloong64/jdk-loong64:21.0.11_10-anolis
-docker pull kubernetesloong64/jdk-loong64:21.11.38-anolis
+docker pull kubernetesloong64/jdk-loong64:21.0.12_8-anolis
+docker pull kubernetesloong64/jdk-loong64:21.12.26-anolis
 
 # JDK 21 (debian)
 docker pull kubernetesloong64/jdk-loong64:21-debian
 docker pull kubernetesloong64/jdk-loong64:21-debian-slim
-docker pull kubernetesloong64/jdk-loong64:21.0.11_10-debian
-docker pull kubernetesloong64/jdk-loong64:21.0.11_10-debian-slim
-docker pull kubernetesloong64/jdk-loong64:21.11.38-debian
-docker pull kubernetesloong64/jdk-loong64:21.11.38-debian-slim
+docker pull kubernetesloong64/jdk-loong64:21.0.12_8-debian
+docker pull kubernetesloong64/jdk-loong64:21.0.12_8-debian-slim
+docker pull kubernetesloong64/jdk-loong64:21.12.26-debian
+docker pull kubernetesloong64/jdk-loong64:21.12.26-debian-slim
 
 # JDK 25 (anolis)
 docker pull kubernetesloong64/jdk-loong64:25-anolis
-docker pull kubernetesloong64/jdk-loong64:25.0.3_9-anolis
-docker pull kubernetesloong64/jdk-loong64:25.4.28-anolis
+docker pull kubernetesloong64/jdk-loong64:25.0.4_7-anolis
+docker pull kubernetesloong64/jdk-loong64:25.5.22-anolis
 
 # JDK 25 (debian)
 docker pull kubernetesloong64/jdk-loong64:25-debian
 docker pull kubernetesloong64/jdk-loong64:25-debian-slim
-docker pull kubernetesloong64/jdk-loong64:25.0.3_9-debian
-docker pull kubernetesloong64/jdk-loong64:25.0.3_9-debian-slim
-docker pull kubernetesloong64/jdk-loong64:25.4.28-debian
-docker pull kubernetesloong64/jdk-loong64:25.4.28-debian-slim
+docker pull kubernetesloong64/jdk-loong64:25.0.4_7-debian
+docker pull kubernetesloong64/jdk-loong64:25.0.4_7-debian-slim
+docker pull kubernetesloong64/jdk-loong64:25.5.22-debian
+docker pull kubernetesloong64/jdk-loong64:25.5.22-debian-slim
 
 # JDK 26 (anolis)
 docker pull kubernetesloong64/jdk-loong64:26-anolis
